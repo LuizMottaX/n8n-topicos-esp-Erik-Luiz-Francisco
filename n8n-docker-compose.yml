@@ -1,0 +1,74 @@
+services:
+  n8n:
+
+    container_name: "n8n"
+
+    entrypoint:
+      - "tini"
+      - "--"
+      - "/docker-entrypoint.sh"
+
+    environment:
+      - "GENERIC_TIMEZONE=America/Sao_Paulo"
+      - "TZ=America/Sao_Paulo"
+      - "NODE_VERSION=26.7.0-r0"
+      - "NPM_CONFIG_UPDATE_NOTIFIER=false"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "NODE_PATH=/usr/local/lib/node_modules"
+      - "NODE_ENV=production"
+      - "N8N_RELEASE_TYPE=stable"
+      - "SHELL=/bin/sh"
+
+    hostname: "1eac62c2c13a"
+
+    image: "docker.n8n.io/n8nio/n8n"
+
+    ipc: "private"
+
+    labels:
+      com.docker.dhi.chain-id: "sha256:345b12b168ca26df4099ff68ad878a18c02d80e187dd91f8406f505bda2c04ce"
+      com.docker.dhi.compliance: "cis"
+      com.docker.dhi.created: "2026-08-10T17:01:42Z"
+      com.docker.dhi.date.release: "2026-05-05"
+      com.docker.dhi.definition: "image/node/alpine-3.24/26-dev"
+      com.docker.dhi.distro: "alpine-3.24"
+      com.docker.dhi.entitlement: "public"
+      com.docker.dhi.flavor: ""
+      com.docker.dhi.name: "dhi/node"
+      com.docker.dhi.package-manager: "apk"
+      com.docker.dhi.shell: "busybox"
+      com.docker.dhi.title: "Node.js 26.x (dev)"
+      com.docker.dhi.url: "https://dhi.io/catalog/node"
+      com.docker.dhi.variant: "dev"
+      com.docker.dhi.version: "26.7.0-alpine3.24-dev"
+      org.opencontainers.image.description: "Workflow Automation Tool"
+      org.opencontainers.image.source: "https://github.com/n8n-io/n8n"
+      org.opencontainers.image.title: "n8n"
+      org.opencontainers.image.url: "https://n8n.io"
+      org.opencontainers.image.version: "2.42.7"
+
+    logging:
+      driver: "json-file"
+      options: {}
+
+    mac_address: "9a:4f:9a:48:5c:17"
+
+    network_mode: "bridge"
+
+    ports:
+      - "5678:5678/tcp"
+
+    restart: "unless-stopped"
+
+    user: "node"
+
+    volumes:
+      - "n8n_data:/home/node/.n8n"
+
+    working_dir: "/home/node"
+
+version: "3.6"
+
+volumes:
+  n8n_data:
+    external: true
